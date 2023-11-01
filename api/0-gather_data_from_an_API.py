@@ -16,9 +16,11 @@ def get_employee_todo_progress(employee_id):
         todo_response = requests.get(todo_url)
         user_response = requests.get(user_url)
 
-        if todo_response.status_code != 200 or user_response.status_code != 200:
-            print
-            ("Employee not found or API request failed.")
+        if (
+                todo_response.status_code != 200
+                or user_response.status_code != 200
+                ):
+            print("Employee not found or API request failed.")
             return
 
         todos = todo_response.json()
