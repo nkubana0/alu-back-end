@@ -1,12 +1,10 @@
 #!/usr/bin/python3
+"""Module"""
+
 import requests
 import sys
 
-# Get data from the JSON URL
-# Give an error message incase the urls are not available
-# Calculate the number of completed and total tasks
-# Display employee todo list progress
-
+""" Module"""
 def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
 
