@@ -1,11 +1,19 @@
 #!/usr/bin/python3
-"""Module"""
+"""
+Module to fetch and display employee TODO list progress.
+"""
 
 import requests
 import sys
 
-""" Module"""
 def get_employee_todo_progress(employee_id):
+    """
+    Fetch and display employee TODO list progress.
+
+    Args:
+        employee_id (str): The employee's ID for whom to retrieve the TODO list.
+
+    """
     base_url = "https://jsonplaceholder.typicode.com"
 
     todo_url = f"{base_url}/todos?userId={employee_id}"
@@ -15,7 +23,10 @@ def get_employee_todo_progress(employee_id):
         todo_response = requests.get(todo_url)
         user_response = requests.get(user_url)
 
-        if todo_response.status_code != 200 or user_response.status_code != 200:
+        if (
+            todo_response.status_code != 200
+            or user_response.status_code != 200
+        ):
             print("Employee not found or API request failed.")
             return
 
@@ -39,3 +50,4 @@ if __name__ == "__main__":
     else:
         employee_id = sys.argv[1]
         get_employee_todo_progress(employee_id)
+
