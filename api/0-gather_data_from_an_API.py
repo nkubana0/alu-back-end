@@ -5,9 +5,6 @@
 import requests
 import sys
 
-"""Module"""
-
-
 def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
 
