@@ -24,11 +24,10 @@ def get_employee_todo_progress(employee_id):
         todos = todo_response.json()
         user = user_response.json()
 
-        total_tasks = len(todos)
-        completed_tasks = sum(1 for todo in todos if todo['completed'])
+        total = len(todos)
+        completed = sum(1 for todo in todos if todo['completed'])
         
-        print
-        (f"Employee {user['name']} is done with tasks({completed_tasks}/{total_tasks}):")
+        print(f"Employee {user['name']} is done with tasks({completed}/{total}):")
         for todo in todos:
             if todo['completed']:
                 print(f"\t{todo['title']}")
