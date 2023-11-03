@@ -5,7 +5,6 @@
 import requests
 import sys
 
-
 def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
 
@@ -16,8 +15,10 @@ def get_employee_todo_progress(employee_id):
         todo_response = requests.get(todo_url)
         user_response = requests.get(user_url)
 
-        if (todo_response.status_code != 200 or
-                user_response.status_code != 200):
+        if (
+            todo_response.status_code != 200
+            or user_response.status_code != 200
+        ):
             print("Employee not found or API request failed.")
             return
 
@@ -27,7 +28,10 @@ def get_employee_todo_progress(employee_id):
         total = len(todos)
         completed = sum(1 for todo in todos if todo['completed'])
         
-        print(f"Employee {user['name']} is done with tasks({completed}/{total}):")
+        message = (
+            f"Employee {user['name']} is done with tasks({completed}/{total}):"
+        )
+        print(message)
         for todo in todos:
             if todo['completed']:
                 print(f"\t{todo['title']}")
