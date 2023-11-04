@@ -1,49 +1,46 @@
 #!/usr/bin/python3
 
-"""Retrieve and display an employee's TODO list progress"""
+"""Employee TODO progress"""
 
+import requests
 import sys
-import urllib.request
-import json
 
 
 def get_employee_todo_list_progress(employee_id):
-    base_url = "https://jsonplaceholder.typicode.com"
+    base_url = 'https://jsonplaceholder.typicode.com'
+    user_url = f'{base_url}/users/{employee_id}'
+    response = requests.get(user_url)
 
-    # Retrieve user information
-    user_url = f"{base_url}/users/{employee_id}"
-    user_response = urllib.request.urlopen(user_url)
-    user_data = json.loads(user_response.read().decode())
+    if response.status_code == 200:
+        user_data = response.json()
+        employee_name = user_data['name']
 
-    if "name" not in user_data:
-        print(f"Failed to retrieve user data for employee ID {employee_id}")
-        return
+        tasks_url = f'{base_url}/todos?userId={employee_id}'
+        tasks_response = requests.get(tasks_url)
 
-    employee_name = user_data["name"]
+        if tasks_response.status_code == 200:
+            tasks_data = tasks_response.json()
+            completed_tasks = [
+                task for task in tasks_data if task['completed']
+            ]
+            num_completed_tasks = len(completed_tasks)
+            total_num_tasks = len(tasks_data)
 
-    # Retrieve TODO list information
-    todo_url = f"{base_url}/todos?userId={employee_id}"
-    todo_response = urllib.request.urlopen(todo_url)
-    todo_data = json.loads(todo_response.read().decode())
+            print(f'Employee {employee_name} is done with tasks '
+                  f'({num_completed_tasks}/{total_num_tasks}):')
 
-    completed_tasks = [task for task in todo_data if task["completed"]]
-    num_completed_tasks = len(completed_tasks)
-    total_num_tasks = len(todo_data)
-
-    # Print TODO list progress
-    print(
-        f"Employee {employee_name} is done with tasks ({num_completed_tasks}/{total_num_tasks}):"
-    )
-    for task in completed_tasks:
-        print(f'    {task["title"]}')
+            for task in completed_tasks:
+                print(f'\t {task["title"]}')
+        else:
+            print(
+                f'Failed to retrieve tasks data for employee ID {employee_id}')
+    else:
+        print(f'Failed to retrieve user data for employee ID {employee_id}')
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 script_name.py <employee_id>")
+        print(f"Usage: python3 script_name.py <employee_id>")
     else:
-        try:
-            employee_id = int(sys.argv[1])
-            get_employee_todo_list_progress(employee_id)
-        except ValueError:
-            print("Invalid employee ID. Please provide an integer.")
+        employee_id = int(sys.argv[1])
+        get_employee_todo_list_progress(employee_id)
