@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
-"""Module"""
+"""
+GET from API and return employee todo progress when given the employee Id
+"""
 
 import requests
 import sys
