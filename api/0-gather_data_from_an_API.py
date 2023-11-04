@@ -1,11 +1,14 @@
 #!/usr/bin/python3
-
-"""Employee TODO progress"""
+"""
+Employee TODO progress
+"""
 
 import requests
 import sys
 
-"""Function that GETS the info from the API"""
+"""
+This is a function that GETS the data from the API
+"""
 
 
 def get_employee_todo_list_progress(employee_id):
