@@ -6,10 +6,6 @@ Employee TODO progress
 import requests
 import sys
 
-"""
-This is a function that GETS the data from the API
-"""
-
 
 def get_employee_todo_list_progress(employee_id):
     base_url = 'https://jsonplaceholder.typicode.com'
