@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""
-Request from API; Return TODO list progress given employee ID
-"""
+""" Library to gather data from an API """
+
 import requests
 import sys
+
+""" Function to gather data from an API """
 
 
 def get_employee_todo_list_progress(employee_id):
