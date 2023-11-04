@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""Module"""
+"""Employee TODO progress"""
 
 import requests
 import sys
@@ -40,9 +40,9 @@ def get_employee_todo_list_progress(employee_id):
         print(f'Failed to retrieve user data for employee ID {employee_id}')
 
 
-if __name__ == "__main__"
-   if len(sys.argv) != 2:
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
         print(f"Usage: python3 script_name.py <employee_id>")
     else:
         employee_id = int(sys.argv[1])
-        get_employee_todo_list_progress(employee_id)
+        get_employee_todo_list_progress(employee_id) 
