@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-"""
-Employee TODO progress
-"""
+
+"""Module"""
+
 import requests
 import sys
 
+"""Module"""
 
 def get_employee_todo_list_progress(employee_id):
-    """return API data"""
     base_url = 'https://jsonplaceholder.typicode.com'
     user_url = f'{base_url}/users/{employee_id}'
     response = requests.get(user_url)
