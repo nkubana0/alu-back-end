@@ -25,11 +25,9 @@ def get_employee_todo_list_progress(employee_id):
             for task in completed_tasks:
                 print(f'\t {task["title"]}')
         else:
-            print(
-                f'Failed to retrieve tasks data for employee ID {employee_id}')
+            print(f'Failed to retrieve tasks data for employee ID {employee_id}')
     else:
         print(f'Failed to retrieve user data for employee ID {employee_id}')
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
