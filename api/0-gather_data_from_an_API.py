@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-a Python script that, using REST API, returns information about employee TODO list progress.
+a Python script that, using REST API, 
+returns information about employee TODO list progress.
 """
 if __name__ == "__main__":
     import json
