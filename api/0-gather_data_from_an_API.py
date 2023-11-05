@@ -5,6 +5,12 @@
 import requests
 import sys
 
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print(f'Usage: python3 script_name.py <employee_id>')
+    else:
+        employee_id = int(sys.argv[1])
+        get_employee_todo_progress(employee_id)
 
 def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
@@ -35,11 +41,3 @@ def get_employee_todo_progress(employee_id):
                 f'Failed to retrieve tasks data for employee ID {employee_id}')
     else:
         print(f'Failed to retrieve user data for employee ID {employee_id}')
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print(f'Usage: python3 script_name.py <employee_id>')
-    else:
-        employee_id = int(sys.argv[1])
-        get_employee_todo_progress(employee_id)
