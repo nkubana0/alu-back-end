@@ -1,49 +1,55 @@
 #!/usr/bin/python3
 
-"""Module"""
+"""Module for fetching and displaying employee TODO list progress."""
 
 import requests
 import sys
 
+def get_employee_todo_list_progress(employee_id):
+    """
+    Fetches and displays an employee's TODO list progress.
 
-def get_employee_todo_progress(employee_id):
+    Args:
+        employee_id (str): The ID of the employee to retrieve TODO list progress for.
+
+    Returns:
+        None
+    """
     base_url = "https://jsonplaceholder.typicode.com"
 
-    todo_url = f"{base_url}/todos?userId={employee_id}"
     user_url = f"{base_url}/users/{employee_id}"
+    todo_url = f"{base_url}/todos?userId={employee_id}"
 
     try:
-        todo_response = requests.get(todo_url)
         user_response = requests.get(user_url)
+        todo_response = requests.get(todo_url)
 
         if (
-            todo_response.status_code != 200 or
-            user_response.status_code != 200
+            user_response.status_code != 200 or
+            todo_response.status_code != 200
         ):
-            print("Employee not found or API request failed.")
+            print(f"Failed to retrieve data for employee ID {employee_id}")
             return
 
-        todos = todo_response.json()
-        user = user_response.json()
+        user_data = user_response.json()
+        employee_name = user_data["name"]
 
-        total = len(todos)
-        completed = sum(1 for todo in todos if todo['completed'])
+        tasks_data = todo_response.json()
+        completed_tasks = [task for task in tasks_data if task["completed"]]
+        num_completed_tasks = len(completed_tasks)
+        total_num_tasks = len(tasks_data)
 
-        message = (
-            f"Employee {user['name']} is done with tasks({completed}/{total}):"
-        )
-        print(message)
-        for todo in todos:
-            if todo['completed']:
-                print(f"\t{todo['title']}")
+        print(f"Employee {employee_name} is done with tasks ({num_completed_tasks}/{total_num_tasks}):")
+
+        for task in completed_tasks:
+            print(f"\t{task['title']}")
 
     except requests.exceptions.RequestException as e:
         print("An error occurred while making the API request:", e)
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python3 script_name.py <employee_id>")
     else:
         employee_id = sys.argv[1]
-        get_employee_todo_progress(employee_id)
+        get_employee_todo_list_progress(employee_id)
